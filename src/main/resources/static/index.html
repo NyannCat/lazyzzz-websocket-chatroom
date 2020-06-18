@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <title>聊天室</title>
+    <link href="./css/demo.css" rel="stylesheet" type="text/css"/>
+    <link href="./css/normalize.css" rel="stylesheet" type="text/css"/>
+    <link href="./css/canvi.css" rel="stylesheet" type="text/css"/>
+    <link href="./css/login.css" rel="stylesheet" type="text/css"/>
+    <link href="./css/layui.css" rel="stylesheet" type="text/css"/>
+    <!--the css for jquery.mCustomScrollbar-->
+    <link href="./css/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+    <!--the css for this plugin-->
+    <link href="./css/jquery.emoji.css" rel="stylesheet"/>
+    <link href="./css/csshake.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body style="background-color: rgb(230, 230, 230)">
+<aside aria-hidden="true" class="myCanvasNav canvi-navbar" data-position="left" data-push-content="false" id="aside"
+       inert="" style="width: 100vw;">
+    <div class="canvi-user-info" id="canvi" style="padding-top: 20px;padding-bottom: 20px;">
+        <div class="canvi-user-info__data">
+            <span class="canvi-user-info__title" id="activeRoom">房间号:</span>
+            <a class="canvi-user-info__meta" id="activeUser">开心畅聊每一天😘</a><br>
+        </div>
+    </div>
+    <ul class="canvi-navigation" id="cebian">
+    </ul>
+</aside>
+
+<main class="js-canvi-content canvi-content"></main>
+
+<div>
+    <button class="js-canvi-open-button--left btn" id="btn" style="display: none">查看在线人数</button>
+    <div style="display: none;">
+        <div>
+            <span>昵称：</span>
+            <input id="nick" type="text">
+        </div>
+        <div>
+            <span>房间：</span>
+            <input id="room" type="text">
+        </div>
+        <div>
+            <span>用户ID：</span>
+            <input id="userId" type="text">
+        </div>
+    </div>
+
+    <div id="message" style="display: none"></div>
+
+    <div class="footer" id="footer">
+        <div id="toolbar" style="padding: 5px;">
+            <img id="emoji" src="icon/emoji.png" style="width: 26px;margin-left: 10px" v-bind:title="emojiTips">
+            <img id="clear" onclick="emptyScreen()" src="icon/clear.png" style="width: 23px;margin-left: 10px"
+                 v-bind:title="clearTips">
+            <img id="send" onclick="send()" src="icon/send.png" style="width: 24px;position: absolute;right: 10px"
+                 v-bind:title="sendTips">
+        </div>
+        <div contenteditable="true" id="text"></div>
+    </div>
+
+    <form id="imageUp" style="display: none">
+        <a class="blueButton" href='javascript:void(0);'>发图</a>
+        <input class="myFileUpload" id="image" name="file" onchange="sendImg(this)" type="file"/>
+    </form>
+</div>
+
+<div class="login" id="window">
+    <div class="login-title">进入房间</div>
+    <div class="login-input-content">
+        <div class="login-input">
+            <label>昵称：</label>
+            <input class="list-input" id="nickname" placeholder="请输入昵称" type="text"/>
+        </div>
+        <div class="login-input">
+            <label>房间：</label>
+            <input class="list-input" id="roomName" list="rooms" onfocus="allRoom(this)" placeholder="请输入房间"
+                   type="text"/>
+            <datalist id="rooms"></datalist>
+        </div>
+    </div>
+    <div class="login-button" onclick="login()">
+        <a href="javascript:void(0);" id="login-button-submit" style="text-decoration:none;color:#ffffff;">进入</a>
+    </div>
+</div>
+
+<script src="./js/jquery.min.js"></script>
+<script src="./js/canvi.js"></script>
+<script src="./js/layui.all.js"></script>
+<!--(Optional) the js for jquery.mCustomScrollbar's addon-->
+<script src="./js/jquery.mousewheel-3.0.6.min.js"></script>
+<!--the js for jquery.mCustomScrollbar-->
+<script src="./js/jquery.mCustomScrollbar.min.js"></script>
+<!--the js for this plugin-->
+<script src="./js/jquery.emoji.js"></script>
+<!--vue-->
+<script src="./js/vue.min.js"></script>
+<!--引入变量-->
+<script src="./js/common.variate.js"></script>
+<script src="./js/index.js"></script>
+</body>
+
+</html>
