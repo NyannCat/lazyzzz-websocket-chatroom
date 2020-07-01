@@ -13,9 +13,20 @@ public class BaseMessage {
 
     private String username;
 
+    /**
+     * 消息（系统或用户）
+     */
     private String message;
 
+    /**
+     * 标记消息是否是系统
+     */
     private boolean isSystem = false;
+
+    /**
+     * 判断消息是否为图片
+     */
+    private boolean isImage = false;
 
     public BaseMessage() {
     }

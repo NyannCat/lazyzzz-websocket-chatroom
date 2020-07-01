@@ -31,6 +31,9 @@ public class WebSocketService {
     private static final ConcurrentHashMap<String, Set<Session>> roomSessionMap
             = new ConcurrentHashMap<>();
 
+    /**
+     * key: 房间号 value: 用户名
+     */
     private static final ConcurrentHashMap<String, Set<String>> roomUserMap
             = new ConcurrentHashMap<>();
 
@@ -38,9 +41,12 @@ public class WebSocketService {
     public void onOpen(Session session,
                        @PathParam("roomName") String roomName,
                        @PathParam("username") String username) {
+        //先判断房间是否存在，如果不存在就创建新的set
         roomSessionMap.computeIfAbsent(roomName, k -> new HashSet<>());
+        //添加用户
         roomSessionMap.get(roomName).add(session);
 
+        //加入房间系统消息
         BaseMessage response = new BaseMessage(username + "加入房间", true);
         sendToAll(session, roomName, response);
 
