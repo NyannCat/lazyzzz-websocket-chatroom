@@ -45,9 +45,7 @@ function initAnimation() {
     $("#footer").animate({bottom: '0px'}, 400);
     $("#message").show();
     //因为该方法会引起较近的动画卡顿，所以让他先老实一会儿
-    setTimeout(function () {
-        loadEmoji();
-    }, 500);
+    setTimeout(() => loadEmoji(), 500);
 }
 
 function initWebsocket() {
@@ -60,8 +58,6 @@ function initWebsocket() {
     if (websocket == null) {
         websocket = new WebSocket(socketUrl);
     }
-
-    initAnimation();
 
     websocket.onopen = () => {
         console.log("websocket已打开");
@@ -88,6 +84,8 @@ function initWebsocket() {
         layer.msg(onerrorMsg, {anim: 6});
         console.log("websocket发生错误")
     }
+
+    initAnimation();
 }
 
 //清空屏幕
