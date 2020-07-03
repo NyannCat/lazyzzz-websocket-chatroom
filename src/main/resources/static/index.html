@@ -13,6 +13,8 @@
     <!--the css for this plugin-->
     <link href="./css/jquery.emoji.css" rel="stylesheet"/>
     <link href="./css/csshake.min.css" rel="stylesheet" type="text/css">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 </head>
 
 <body style="background-color: rgb(230, 230, 230)">
@@ -83,6 +85,12 @@
     <div class="login-button" onclick="login()">
         <a href="javascript:void(0);" id="login-button-submit" style="text-decoration:none;color:#ffffff;">进入</a>
     </div>
+    <div id="app">
+        <el-button @click="visible = true">Button</el-button>
+        <el-dialog :visible.sync="visible" title="Hello world">
+            <p>Try Element</p>
+        </el-dialog>
+    </div>
 </div>
 
 <script src="./js/jquery.min.js"></script>
@@ -99,6 +107,18 @@
 <!--引入变量-->
 <script src="./js/common.variate.js"></script>
 <script src="./js/index.js"></script>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </body>
 
+<script>
+    new Vue({
+        el: '#app',
+        data: function() {
+            return { visible: false }
+        }
+    })
+</script>
 </html>
