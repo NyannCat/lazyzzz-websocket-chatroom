@@ -84,6 +84,9 @@
     margin: 0 4px;
     cursor: pointer;
 }
+.login-avatar li.now{
+    border-color: #1aad19;
+}
 
 .login-button{
     background: #00b3ee;

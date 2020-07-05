@@ -9,6 +9,15 @@ let nickname = null;
 let roomName = null;
 let avatarSrc = null;
 
+$('.login .login-avatar li').on('click', function() {
+    $(this)
+        .addClass('now')
+        .siblings()
+        .removeClass('now');
+    avatarSrc = $(this).children("img").attr("src");
+    console.log(avatarSrc);
+})
+
 //设置房间号和昵称并发送，再模拟‘#btn’的点击事件，以弹出侧边栏
 function login() {
     nickname = $("#nickname").val();
@@ -114,7 +123,7 @@ function setOtherMessage(nick, msg, shake) {
 
 //将自己发的消息显示在网页上
 function setSelfMessage(nick, msg, shake) {
-    let avatar = '<img class="avatar" style="width: 30px; height: 30px; margin: 10px" src="./dist/avatar/1.png" alt=""/>';
+    let avatar = '<img class="avatar" style="width: 30px; height: 30px; margin: 10px" src='+ avatarSrc+ '/>';
     let c = '<div class="botui-message-right"><div  class="botui-message-content2 shake-constant shake-constant--hover">';
 
     $("#message").append("<div class='sendUser' style='text-align: right;'><b>" + nick + "</b></div>" + c+ msg +"</div>"+avatar+"</div>");
