@@ -7,6 +7,7 @@ window.onblur = () => {
 
 let nickname = null;
 let roomName = null;
+let avatarSrc = null;
 
 //设置房间号和昵称并发送，再模拟‘#btn’的点击事件，以弹出侧边栏
 function login() {
@@ -103,7 +104,8 @@ function emptyScreen() {
 
 //将消息显示在网页上
 function setOtherMessage(nick, msg, shake) {
-    let a = '<div class="botui-message-left"><div class="botui-message-content shake-constant shake-constant--hover">';
+    let avatar = '<img class="avatar" style="width: 30px; height: 30px; margin: 10px" src="./dist/avatar/1.png" alt=""/>';
+    let a = '<div class="botui-message-left">'+avatar+'<div class="botui-message-content shake-constant shake-constant--hover">';
 
     $("#message").append("<div class='sendUser'><b>" + nick + "</b></div>" + a + msg + b);
     scrollToEnd();
@@ -112,9 +114,10 @@ function setOtherMessage(nick, msg, shake) {
 
 //将自己发的消息显示在网页上
 function setSelfMessage(nick, msg, shake) {
+    let avatar = '<img class="avatar" style="width: 30px; height: 30px; margin: 10px" src="./dist/avatar/1.png" alt=""/>';
     let c = '<div class="botui-message-right"><div  class="botui-message-content2 shake-constant shake-constant--hover">';
 
-    $("#message").append("<div class='sendUser' style='text-align: right;'><b>" + nick + "</b></div>" + c + msg + b);
+    $("#message").append("<div class='sendUser' style='text-align: right;'><b>" + nick + "</b></div>" + c+ msg +"</div>"+avatar+"</div>");
     scrollToEnd();
     $(".botui-message-content2").animate({'margin-right': '0px'}, 200);
 }

@@ -3,7 +3,7 @@
     width:400px;
     position:fixed;
     border:#ebebeb solid 1px;
-    height:200px;
+    height:280px;
     top:50%;
     left:55%;
     background:#ffffff;
@@ -62,10 +62,29 @@
     text-indent:5px;
     border-bottom-width: 1px;
 }
+
+.login-avatar img{
+    display: block;
+    height: 40px;
+    width: 40px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.login-avatar li {
+    float: left;
+    width: 44px;
+    height: 44px;
+    border: 2px solid transparent;
+    margin: 0 4px;
+    cursor: pointer;
+}
+
 .login-button{
     background: #00b3ee;
     width:20%;
-    margin:10px auto 0px auto;
+    margin:70px auto 0px auto;
     line-height:30px;
     font-size:14px;
     text-align:center;
@@ -243,3 +262,7 @@ img{
 .emoji_icon{
     max-width: 25px;
 }
+
+
+
+
