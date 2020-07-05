@@ -56,9 +56,9 @@
             <img id="emoji" src="icon/emoji.png" style="width: 26px;margin-left: 10px" v-bind:title="emojiTips">
             <img id="clear" onclick="emptyScreen()" src="icon/clear.png" style="width: 23px;margin-left: 10px"
                  v-bind:title="clearTips">
+            <img id="upload" onclick="upload()" src="icon/picture.png" style="width: 23px;margin-left: 10px"/>
             <img id="send" onclick="send()" src="icon/send.png" style="width: 24px;position: absolute;right: 10px"
                  v-bind:title="sendTips">
-            <img id="upload" onclick="upload()" src="icon/send.png" style="width: 24px;position: absolute;right: 10px"/>
         </div>
         <div contenteditable="true" id="text"></div>
     </div>
@@ -85,9 +85,6 @@
     </div>
     <div class="login-avatar">
         <ul>
-<!--            <li class=""><img src="./dist/avatar/1.png"  alt=""></li>-->
-<!--            <li class="now"><img src="./dist/avatar/2.png"  alt=""></li>-->
-
             <li class="now"><img src="./dist/avatar/3.png" alt=""></li>
             <li><img src="./dist/avatar/4.png" alt=""></li>
             <li><img src="./dist/avatar/5.png" alt=""></li>
