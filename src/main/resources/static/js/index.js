@@ -7,7 +7,7 @@ window.onblur = () => {
 
 let nickname = null;
 let roomName = null;
-let avatarSrc = './dist/avatar/9.png';
+let avatarSrc = './dist/avatar/4.png';
 
 $('.login .login-avatar li').on('click', function () {
     $(this)
@@ -121,7 +121,7 @@ function setOtherMessage(nick, msg, avatar, isImage) {
         $("#message").append(`
         <div class='sendUser' style='text-align: left;'><b/>${nick} ${currentTime}</div>
         <div class="botui-message-left">
-            <img class="avatar" style="width: 30px; height: 30px; margin: 10px" src="${avatarSrc}">
+            <img class="avatar" style="width: 30px; height: 30px; margin: 10px" src="${avatar}">
             <div class="botui-message-content shake-constant shake-constant--hover">
                 <img src="${msg}">
             </div>
@@ -131,7 +131,7 @@ function setOtherMessage(nick, msg, avatar, isImage) {
         $("#message").append(`
         <div class='sendUser' style='text-align: left;'><b/>${nick} ${currentTime}</div>
         <div class="botui-message-left">
-            <img class="avatar" style="width: 30px; height: 30px; margin: 10px" src="${avatarSrc}">
+            <img class="avatar" style="width: 30px; height: 30px; margin: 10px" src="${avatar}">
             <div class="botui-message-content shake-constant shake-constant--hover">${msg}</div>
         </div>
         `)
@@ -332,10 +332,6 @@ function allRoom(obj) {
 
 function upload(e) {
     let file = e.target.files[0];
-    let fileSize = file.size;
-    let fileName = file.name;
-    console.log(file, fileSize, fileSize)
-
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = e => {
