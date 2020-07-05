@@ -7,9 +7,9 @@ window.onblur = () => {
 
 let nickname = null;
 let roomName = null;
-let avatarSrc = null;
+let avatarSrc = './dist/avatar/9.png';
 
-$('.login .login-avatar li').on('click', function() {
+$('.login .login-avatar li').on('click', function () {
     $(this)
         .addClass('now')
         .siblings()
@@ -83,7 +83,7 @@ function initWebsocket() {
             avatar = './dist/avatar/14.png'
             getOnlineUsers();
         }
-        setOtherMessage(fromUserName, text2Emoji2(message), avatar, null);
+        setOtherMessage(fromUserName, text2Emoji2(message), avatar, serverMsg['image']);
         playSound();
     }
 
@@ -114,25 +114,56 @@ function emptyScreen() {
 }
 
 //将消息显示在网页上
-function setOtherMessage(nick, msg, avatar, shake) {
-    let avatarHtml = '<img class="avatar" style="width: 30px; height: 30px; margin: 10px" src='+ avatar + '/>';
-    let a = '<div class="botui-message-left">'+avatarHtml+'<div class="botui-message-content shake-constant shake-constant--hover">';
+function setOtherMessage(nick, msg, avatar, isImage) {
 
     let currentTime = new Date().toLocaleTimeString();
+    if (isImage) {
+        $("#message").append(`
+        <div class='sendUser' style='text-align: left;'><b/>${nick} ${currentTime}</div>
+        <div class="botui-message-left">
+            <img class="avatar" style="width: 30px; height: 30px; margin: 10px" src="${avatarSrc}">
+            <div class="botui-message-content shake-constant shake-constant--hover">
+                <img src="${msg}">
+            </div>
+        </div>
+        `)
+    } else {
+        $("#message").append(`
+        <div class='sendUser' style='text-align: left;'><b/>${nick} ${currentTime}</div>
+        <div class="botui-message-left">
+            <img class="avatar" style="width: 30px; height: 30px; margin: 10px" src="${avatarSrc}">
+            <div class="botui-message-content shake-constant shake-constant--hover">${msg}</div>
+        </div>
+        `)
+    }
 
-    $("#message").append("<div class='sendUser'><b>" + nick + currentTime + "</b></div>" + a + msg + b);
     scrollToEnd();
     $(".botui-message-content").animate({'margin-left': '0px'}, 200);
 }
 
 //将自己发的消息显示在网页上
-function setSelfMessage(nick, msg, shake) {
-    let avatar = '<img class="avatar" style="width: 30px; height: 30px; margin: 10px" src='+ avatarSrc+ '/>';
-    let c = '<div class="botui-message-right"><div  class="botui-message-content2 shake-constant shake-constant--hover">';
+function setSelfMessage(nick, msg, isImage) {
 
     let currentTime = new Date().toLocaleTimeString();
-
-    $("#message").append("<div class='sendUser' style='text-align: right;'><b>" + nick + currentTime + "</b></div>" + c+ msg +"</div>"+avatar+"</div>");
+    if (isImage) {
+        $("#message").append(`
+        <div class='sendUser' style='text-align: right;'><b/>${nick} ${currentTime}</div>
+        <div class="botui-message-right">
+            <div class="botui-message-content2 shake-constant shake-constant--hover">
+                <img src="${msg}">
+            </div>
+            <img class="avatar" style="width: 30px; height: 30px; margin: 10px" src="${avatarSrc}">
+        </div>
+        `)
+    } else {
+        $("#message").append(`
+        <div class='sendUser' style='text-align: right;'><b/>${nick} ${currentTime}</div>
+        <div class="botui-message-right">
+            <div class="botui-message-content2 shake-constant shake-constant--hover">${msg}</div>
+            <img class="avatar" style="width: 30px; height: 30px; margin: 10px" src="${avatarSrc}">
+        </div>
+        `)
+    }
     scrollToEnd();
     $(".botui-message-content2").animate({'margin-right': '0px'}, 200);
 }
@@ -158,14 +189,6 @@ function send() {
     } else {
         layer.msg("发空消息是什么意思呢？🤔", {anim: 6});
     }
-}
-
-//服务端如果用nginx做转发,可能会因'proxy_read_timeout'配置的过短而自动断开连接,默认是一分钟,所以发送心跳连接,保证不聊天的状态下不会断开
-function ping() {
-    let map = new Map();
-    map.set("type", "ping");
-    let map2json = Map2Json(map);
-    websocket.send(map2json);
 }
 
 // 将文本转换回emoji图片
@@ -307,8 +330,27 @@ function allRoom(obj) {
     });
 }
 
-function upload(file) {
+function upload(e) {
+    let file = e.target.files[0];
+    let fileSize = file.size;
+    let fileName = file.name;
+    console.log(file, fileSize, fileSize)
 
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = e => {
+        let imgCode = e.target.result;
+        let request = {
+            'roomNumber': roomName,
+            'username': nickname,
+            'message': imgCode,
+            'avatar': avatarSrc,
+            'image': true
+        };
+        let json = JSON.stringify(request);
+        setSelfMessage(nickname, imgCode, true);
+        websocket.send(json);
+    }
 }
 
 new Vue({

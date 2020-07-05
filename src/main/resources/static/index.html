@@ -14,7 +14,7 @@
     <link href="./css/jquery.emoji.css" rel="stylesheet"/>
     <link href="./css/csshake.min.css" rel="stylesheet" type="text/css">
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" rel="stylesheet">
 </head>
 
 <body style="background-color: rgb(230, 230, 230)">
@@ -56,7 +56,13 @@
             <img id="emoji" src="icon/emoji.png" style="width: 26px;margin-left: 10px" v-bind:title="emojiTips">
             <img id="clear" onclick="emptyScreen()" src="icon/clear.png" style="width: 23px;margin-left: 10px"
                  v-bind:title="clearTips">
-            <img id="upload" onclick="upload()" src="icon/picture.png" style="width: 23px;margin-left: 10px"/>
+            <div style="width: 23px;margin-left: 10px;display: inline-block">
+                <input @change="upload($event)" accept="image/gif, image/jpg, image/jpeg, image/png"
+                       id="upload-input" style="position: absolute;width: 23px;margin: 0;opacity: 0;"
+                       type="file"/>
+                <!-- 自定义按钮效果 -->
+                <img id="upload" src="icon/picture.png"/>
+            </div>
             <img id="send" onclick="send()" src="icon/send.png" style="width: 24px;position: absolute;right: 10px"
                  v-bind:title="sendTips">
         </div>
@@ -85,12 +91,12 @@
     </div>
     <div class="login-avatar">
         <ul>
-            <li class="now"><img src="./dist/avatar/3.png" alt=""></li>
-            <li><img src="./dist/avatar/4.png" alt=""></li>
-            <li><img src="./dist/avatar/5.png" alt=""></li>
-            <li><img src="./dist/avatar/6.png"  alt=""></li>
-            <li><img src="./dist/avatar/7.png"  alt=""></li>
-            <li><img src="./dist/avatar/8.png"  alt=""></li>
+            <li class="now"><img alt="" src="./dist/avatar/3.png"></li>
+            <li><img alt="" src="./dist/avatar/4.png"></li>
+            <li><img alt="" src="./dist/avatar/5.png"></li>
+            <li><img alt="" src="./dist/avatar/6.png"></li>
+            <li><img alt="" src="./dist/avatar/7.png"></li>
+            <li><img alt="" src="./dist/avatar/8.png"></li>
         </ul>
     </div>
     <div class="login-button" onclick="login()">

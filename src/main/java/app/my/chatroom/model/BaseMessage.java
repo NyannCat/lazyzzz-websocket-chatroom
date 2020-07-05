@@ -28,6 +28,11 @@ public class BaseMessage {
      */
     private boolean isSystem = false;
 
+    /**
+     * 消息是否为图片
+     */
+    private boolean isImage = false;
+
     public BaseMessage() {
     }
 
