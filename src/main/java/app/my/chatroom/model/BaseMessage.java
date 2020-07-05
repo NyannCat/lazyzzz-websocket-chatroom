@@ -19,14 +19,14 @@ public class BaseMessage {
     private String message;
 
     /**
+     * 头像地址
+     */
+    private String avatar;
+
+    /**
      * 标记消息是否是系统
      */
     private boolean isSystem = false;
-
-    /**
-     * 判断消息是否为图片
-     */
-    private boolean isImage = false;
 
     public BaseMessage() {
     }

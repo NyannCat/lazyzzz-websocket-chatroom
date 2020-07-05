@@ -77,11 +77,13 @@ function initWebsocket() {
         let serverMsg = JSON.parse(msg.data)
         let fromUserName = serverMsg['username'] == null ? '[System]' : serverMsg['username']
         let message = serverMsg['message']
+        let avatar = serverMsg['avatar']
         console.log(serverMsg);
         if (serverMsg['system'] === true) {
+            avatar = './dist/avatar/14.png'
             getOnlineUsers();
         }
-        setOtherMessage(fromUserName, text2Emoji2(message), null);
+        setOtherMessage(fromUserName, text2Emoji2(message), avatar, null);
         playSound();
     }
 
@@ -112,11 +114,13 @@ function emptyScreen() {
 }
 
 //将消息显示在网页上
-function setOtherMessage(nick, msg, shake) {
-    let avatar = '<img class="avatar" style="width: 30px; height: 30px; margin: 10px" src="./dist/avatar/1.png" alt=""/>';
-    let a = '<div class="botui-message-left">'+avatar+'<div class="botui-message-content shake-constant shake-constant--hover">';
+function setOtherMessage(nick, msg, avatar, shake) {
+    let avatarHtml = '<img class="avatar" style="width: 30px; height: 30px; margin: 10px" src='+ avatar + '/>';
+    let a = '<div class="botui-message-left">'+avatarHtml+'<div class="botui-message-content shake-constant shake-constant--hover">';
 
-    $("#message").append("<div class='sendUser'><b>" + nick + "</b></div>" + a + msg + b);
+    let currentTime = new Date().toLocaleTimeString();
+
+    $("#message").append("<div class='sendUser'><b>" + nick + currentTime + "</b></div>" + a + msg + b);
     scrollToEnd();
     $(".botui-message-content").animate({'margin-left': '0px'}, 200);
 }
@@ -126,7 +130,9 @@ function setSelfMessage(nick, msg, shake) {
     let avatar = '<img class="avatar" style="width: 30px; height: 30px; margin: 10px" src='+ avatarSrc+ '/>';
     let c = '<div class="botui-message-right"><div  class="botui-message-content2 shake-constant shake-constant--hover">';
 
-    $("#message").append("<div class='sendUser' style='text-align: right;'><b>" + nick + "</b></div>" + c+ msg +"</div>"+avatar+"</div>");
+    let currentTime = new Date().toLocaleTimeString();
+
+    $("#message").append("<div class='sendUser' style='text-align: right;'><b>" + nick + currentTime + "</b></div>" + c+ msg +"</div>"+avatar+"</div>");
     scrollToEnd();
     $(".botui-message-content2").animate({'margin-right': '0px'}, 200);
 }
@@ -142,7 +148,8 @@ function send() {
         let request = {
             'roomNumber': roomName,
             'username': nickname,
-            'message': msg
+            'message': msg,
+            'avatar': avatarSrc
         }
         let json = JSON.stringify(request)
         document.getElementById('text').innerHTML = null;
@@ -298,6 +305,10 @@ function allRoom(obj) {
             });
         }
     });
+}
+
+function upload(file) {
+
 }
 
 new Vue({
