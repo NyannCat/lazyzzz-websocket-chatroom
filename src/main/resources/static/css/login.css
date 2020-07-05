@@ -63,6 +63,10 @@
     border-bottom-width: 1px;
 }
 
+.login-avatar {
+    padding-left: 45px;
+}
+
 .login-avatar img{
     display: block;
     height: 40px;
