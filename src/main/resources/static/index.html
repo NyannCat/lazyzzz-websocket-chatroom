@@ -2,7 +2,7 @@
 <html xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-    <title>聊天室</title>
+    <title>Chatus</title>
     <link href="./css/demo.css" rel="stylesheet" type="text/css"/>
     <link href="./css/normalize.css" rel="stylesheet" type="text/css"/>
     <link href="./css/canvi.css" rel="stylesheet" type="text/css"/>
@@ -13,8 +13,7 @@
     <!--the css for this plugin-->
     <link href="./css/jquery.emoji.css" rel="stylesheet"/>
     <link href="./css/csshake.min.css" rel="stylesheet" type="text/css">
-    <!-- 引入样式 -->
-    <link href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" rel="stylesheet">
+
 </head>
 
 <body style="background-color: rgb(230, 230, 230)">
@@ -22,7 +21,7 @@
        inert="" style="width: 100vw;">
     <div class="canvi-user-info" id="canvi" style="padding-top: 20px;padding-bottom: 20px;">
         <div class="canvi-user-info__data">
-            <span class="canvi-user-info__title" id="activeRoom">房间号:</span>
+            <span class="canvi-user-info__title" id="activeRoom">Room Number:</span>
             <a class="canvi-user-info__meta" id="activeUser">开心畅聊每一天😘</a><br>
         </div>
     </div>
@@ -33,18 +32,18 @@
 <main class="js-canvi-content canvi-content"></main>
 
 <div>
-    <button class="js-canvi-open-button--left btn" id="btn" style="display: none">查看在线人数</button>
+    <button class="js-canvi-open-button--left btn" id="btn" style="display: none">Online Users</button>
     <div style="display: none;">
         <div>
-            <span>昵称：</span>
+            <span>Name：</span>
             <input id="nick" type="text">
         </div>
         <div>
-            <span>房间：</span>
+            <span>Room：</span>
             <input id="room" type="text">
         </div>
         <div>
-            <span>用户ID：</span>
+            <span>User ID：</span>
             <input id="userId" type="text">
         </div>
     </div>
@@ -76,15 +75,15 @@
 </div>
 
 <div class="login" id="window">
-    <div class="login-title">进入房间</div>
+    <div class="login-title">Chatus</div>
     <div class="login-input-content">
         <div class="login-input">
-            <label>昵称：</label>
-            <input class="list-input" id="nickname" placeholder="请输入昵称" type="text"/>
+            <label>Name：</label>
+            <input class="list-input" id="nickname" placeholder="enter username" type="text"/>
         </div>
         <div class="login-input">
-            <label>房间：</label>
-            <input class="list-input" id="roomName" list="rooms" onfocus="allRoom(this)" placeholder="请输入房间"
+            <label>Room：</label>
+            <input class="list-input" id="roomName" list="rooms" onfocus="allRoom(this)" placeholder="enter chat room number"
                    type="text"/>
             <datalist id="rooms"></datalist>
         </div>
@@ -100,7 +99,7 @@
         </ul>
     </div>
     <div class="login-button" onclick="login()">
-        <a href="javascript:void(0);" id="login-button-submit" style="text-decoration:none;color:#ffffff;">进入</a>
+        <a href="javascript:void(0);" id="login-button-submit" style="text-decoration:none;color:#ffffff;">Start</a>
     </div>
 
 </div>
@@ -119,18 +118,7 @@
 <!--引入变量-->
 <script src="./js/common.variate.js"></script>
 <script src="./js/index.js"></script>
-<!-- import Vue before Element -->
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-<!-- 引入组件库 -->
-<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
 </body>
 
-<script>
-    // new Vue({
-    //     el: '#app',
-    //     data: function() {
-    //         return { visible: false }
-    //     }
-    // })
-</script>
 </html>

@@ -23,7 +23,7 @@ function login() {
     nickname = $("#nickname").val();
     roomName = $("#roomName").val();
     if (nickname === "" || roomName === "") {
-        layer.msg("房间号和昵称不能为空！", {anim: 6});
+        layer.msg("Room number and username can't be empty！", {anim: 6});
         return;
     }
     //检查房间内是否存在同名用户
@@ -34,7 +34,7 @@ function login() {
             let hasDuplicateUser = JSON.parse(data);
             console.log("是否存在重名: " + hasDuplicateUser);
             if (hasDuplicateUser) {
-                layer.msg("该房间存在已存在同名用户！", {anim: 6});
+                layer.msg("Username already in use！", {anim: 6});
             } else {
                 initWebsocket();
             }
@@ -44,8 +44,8 @@ function login() {
 
 function initAnimation() {
     document.getElementById('text').innerHTML = null;
-    document.getElementById('activeRoom').innerText = '房间：' + roomName;
-    document.getElementById('activeUser').innerText = '昵称：' + nickname;
+    document.getElementById('activeRoom').innerText = 'Room ID：' + roomName;
+    document.getElementById('activeUser').innerText = 'Username：' + nickname;
 
     getOnlineUsers();
 
@@ -102,10 +102,10 @@ function initWebsocket() {
 
 //清空屏幕
 function emptyScreen() {
-    layer.msg('是否清空屏幕？', {
+    layer.msg('Clear Screen？', {
         anim: 6,
         time: 0 //不自动关闭
-        , btn: ['确定', '取消']
+        , btn: ['Confirm', 'Cancel']
         , yes: function (index) {
             layer.close(index);
             $("#message").empty();
@@ -142,7 +142,7 @@ function setOtherMessage(nick, msg, avatar, isImage) {
 }
 
 //将自己发的消息显示在网页上
-function setSelfMessage(nick, msg, isImage) {
+function setSelfMessage(nick, msg, avatar, isImage) {
 
     let currentTime = new Date().toLocaleTimeString();
     if (isImage) {
@@ -152,7 +152,7 @@ function setSelfMessage(nick, msg, isImage) {
             <div class="botui-message-content2 shake-constant shake-constant--hover">
                 <img src="${msg}">
             </div>
-            <img class="avatar" style="width: 30px; height: 30px; margin: 10px" src="${avatarSrc}">
+            <img class="avatar" style="width: 30px; height: 30px; margin: 10px" src="${avatar}">
         </div>
         `)
     } else {
@@ -160,7 +160,7 @@ function setSelfMessage(nick, msg, isImage) {
         <div class='sendUser' style='text-align: right;'><b/>${nick} ${currentTime}</div>
         <div class="botui-message-right">
             <div class="botui-message-content2 shake-constant shake-constant--hover">${msg}</div>
-            <img class="avatar" style="width: 30px; height: 30px; margin: 10px" src="${avatarSrc}">
+            <img class="avatar" style="width: 30px; height: 30px; margin: 10px" src="${avatar}">
         </div>
         `)
     }
@@ -184,10 +184,10 @@ function send() {
         }
         let json = JSON.stringify(request)
         document.getElementById('text').innerHTML = null;
-        setSelfMessage(nickname, text2Emoji2(msg), null);
+        setSelfMessage(nickname, text2Emoji2(msg), avatarSrc,null);
         websocket.send(json);
     } else {
-        layer.msg("发空消息是什么意思呢？🤔", {anim: 6});
+        layer.msg("Empty message？🤔", {anim: 6});
     }
 }
 
@@ -203,18 +203,18 @@ function loadEmoji() {
         showTab: true,
         animation: 'slide',
         icons: [{
-            name: "QQ表情",
+            name: "QQ emoji",
             path: "dist/img/qq/",
             maxNum: 154,
             file: ".gif"
 
         }, {
-            name: "坏坏GIF",
+            name: "GIF emoji",
             path: "dist/img/huaiGif/",
             maxNum: 26,
             file: ".gif"
         }, {
-            name: "猥琐萌",
+            name: "Cute emoji",
             path: "dist/img/xiaoren/",
             maxNum: 186,
             file: ".gif"
@@ -269,7 +269,7 @@ function getOnlineUsers() {
                         '                    <span  id="user-' + user.id + '" class="canvi-navigation__icon-wrapper" style="background:#FF3A43;">\n' +
                         '                        <span class="canvi-navigation__icon icon-iconmonstr-code-13"></span>\n' +
                         '                    </span>\n' +
-                        '                    <span class="canvi-navigation__me_text">本人</span>\n' +
+                        '                    <span class="canvi-navigation__me_text">Yourself</span>\n' +
                         '                </a>\n' +
                         '            </li>';
                     $("#cebian").append(html);
@@ -320,7 +320,7 @@ function allRoom(obj) {
         success: rooms => {
             $("#rooms").empty();
             if (rooms.length > 0) {
-                layer.tips("双击或点这里可选择已存在的房间", obj);
+                layer.tips("Click to view existing chat room", obj);
             }
             rooms.forEach(function (room) {
                 let html = '<option value="' + room + '">';
@@ -344,7 +344,7 @@ function upload(e) {
             'image': true
         };
         let json = JSON.stringify(request);
-        setSelfMessage(nickname, imgCode, true);
+        setSelfMessage(nickname, imgCode, avatarSrc,true);
         websocket.send(json);
     }
 }
