@@ -47,13 +47,13 @@ public class WebSocketService {
         roomSessionMap.get(roomName).add(session);
 
         //加入房间系统消息
-        BaseMessage response = new BaseMessage(username + "加入房间", true);
+        BaseMessage response = new BaseMessage(username + " Enter the Room", true);
         sendToAll(session, roomName, response);
 
         roomUserMap.computeIfAbsent(roomName, k -> new HashSet<>());
         roomUserMap.get(roomName).add(username);
 
-        log.info(username + "加入房间:" + roomName + ", 当前人数:" + onlineNum.incrementAndGet());
+        log.info(username + "Enter the Room:" + roomName + ", Online Users:" + onlineNum.incrementAndGet());
     }
 
     @OnClose
@@ -64,14 +64,14 @@ public class WebSocketService {
         if (roomSessionMap.get(roomName).isEmpty()) {
             roomSessionMap.remove(roomName);
         } else {
-            BaseMessage response = new BaseMessage(username + "离开房间", true);
+            BaseMessage response = new BaseMessage(username + " Exit Room", true);
             sendToAll(session, roomName, response);
         }
         roomUserMap.get(roomName).remove(username);
         if (roomUserMap.get(roomName).isEmpty()) {
             roomUserMap.remove(roomName);
         }
-        log.info(username + "退出房间:" + roomName + ", 当前人数:" + onlineNum.decrementAndGet());
+        log.info(username + "Exit Room:" + roomName + ", Online Users:" + onlineNum.decrementAndGet());
     }
 
     @OnMessage
@@ -83,7 +83,7 @@ public class WebSocketService {
 
     @OnError
     public void onError(Throwable throwable) {
-        log.error("Websocket错误", throwable);
+        log.error("Websocket Error", throwable);
     }
 
     public Set<String> getOnlineUsers(@NonNull String roomName) {

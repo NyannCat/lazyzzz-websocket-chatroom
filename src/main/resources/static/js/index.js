@@ -23,7 +23,7 @@ function login() {
     nickname = $("#nickname").val();
     roomName = $("#roomName").val();
     if (nickname === "" || roomName === "") {
-        layer.msg("房间号和昵称不能为空！", {anim: 6});
+        layer.msg("Room and Nickname cannot be empty", {anim: 6});
         return;
     }
     //检查房间内是否存在同名用户
@@ -32,9 +32,8 @@ function login() {
         url: '/websocket/exists?roomName=' + roomName + '&username=' + nickname,
         success: data => {
             let hasDuplicateUser = JSON.parse(data);
-            console.log("是否存在重名: " + hasDuplicateUser);
             if (hasDuplicateUser) {
-                layer.msg("该房间存在已存在同名用户！", {anim: 6});
+                layer.msg("Duplicated Nickname in the Room！Change Another name", {anim: 6});
             } else {
                 initWebsocket();
             }
@@ -44,8 +43,8 @@ function login() {
 
 function initAnimation() {
     document.getElementById('text').innerHTML = null;
-    document.getElementById('activeRoom').innerText = '房间：' + roomName;
-    document.getElementById('activeUser').innerText = '昵称：' + nickname;
+    document.getElementById('activeRoom').innerText = 'Room：' + roomName;
+    document.getElementById('activeUser').innerText = 'Nickname：' + nickname;
 
     getOnlineUsers();
 
@@ -70,7 +69,7 @@ function initWebsocket() {
     }
 
     websocket.onopen = () => {
-        console.log("websocket已打开");
+        // console.log("websocket已打开");
     }
 
     websocket.onmessage = msg => {
@@ -89,12 +88,12 @@ function initWebsocket() {
 
     websocket.onclose = () => {
         layer.alert(oncloseMsg, {icon: 2});
-        console.log("websocket已关闭")
+        // console.log("websocket已关闭")
     }
 
     websocket.onerror = () => {
         layer.msg(onerrorMsg, {anim: 6});
-        console.log("websocket发生错误")
+        // console.log("websocket发生错误")
     }
 
     initAnimation();
@@ -102,10 +101,10 @@ function initWebsocket() {
 
 //清空屏幕
 function emptyScreen() {
-    layer.msg('是否清空屏幕？', {
+    layer.msg('Clear the Screen？', {
         anim: 6,
         time: 0 //不自动关闭
-        , btn: ['确定', '取消']
+        , btn: ['Yes', 'No']
         , yes: function (index) {
             layer.close(index);
             $("#message").empty();
@@ -116,7 +115,7 @@ function emptyScreen() {
 //将消息显示在网页上
 function setOtherMessage(nick, msg, avatar, isImage) {
 
-    let currentTime = new Date().toLocaleTimeString();
+    let currentTime = new Date().toUTCString();
     if (isImage) {
         $("#message").append(`
         <div class='sendUser' style='text-align: left;'><b/>${nick} ${currentTime}</div>
@@ -144,7 +143,7 @@ function setOtherMessage(nick, msg, avatar, isImage) {
 //将自己发的消息显示在网页上
 function setSelfMessage(nick, msg, isImage) {
 
-    let currentTime = new Date().toLocaleTimeString();
+    let currentTime = new Date().toUTCString();
     if (isImage) {
         $("#message").append(`
         <div class='sendUser' style='text-align: right;'><b/>${nick} ${currentTime}</div>
@@ -187,7 +186,7 @@ function send() {
         setSelfMessage(nickname, text2Emoji2(msg), null);
         websocket.send(json);
     } else {
-        layer.msg("发空消息是什么意思呢？🤔", {anim: 6});
+        layer.msg("Why Sending Empty Message？🤔", {anim: 6});
     }
 }
 
@@ -203,18 +202,18 @@ function loadEmoji() {
         showTab: true,
         animation: 'slide',
         icons: [{
-            name: "QQ表情",
+            name: "QQ Emoji",
             path: "dist/img/qq/",
             maxNum: 154,
             file: ".gif"
 
         }, {
-            name: "坏坏GIF",
+            name: "BadBad Emoji",
             path: "dist/img/huaiGif/",
             maxNum: 26,
             file: ".gif"
         }, {
-            name: "猥琐萌",
+            name: "Cute Emoji",
             path: "dist/img/xiaoren/",
             maxNum: 186,
             file: ".gif"
@@ -254,25 +253,27 @@ function getOnlineUsers() {
             users.forEach(function (user) {
                 console.log(user);
                 if (user !== nickname) {
-                    let html = '<li>\n' +
-                        '                <a class="canvi-navigation__item">\n' +
-                        '                    <span  id="user-' + user.id + '" class="canvi-navigation__icon-wrapper" style="background: #00ce46;">\n' +
-                        '                        <span class="canvi-navigation__icon icon-iconmonstr-code-13"></span>\n' +
-                        '                    </span>\n' +
-                        '                    <span class="canvi-navigation__text">' + user + '</span>\n' +
-                        '                </a>\n' +
-                        '            </li>';
-                    $("#cebian").append(html);
+                    $("#cebian").append(`
+                        <li>
+                            <a class="canvi-navigation__item">
+                                <span  id="user-' + user.id + '" class="canvi-navigation__icon-wrapper" style="background: #00ce46;">
+                                    <span class="canvi-navigation__icon icon-iconmonstr-code-13"></span>
+                                </span>
+                                <span class="canvi-navigation__text">${user}</span>
+                            </a>
+                        </li>
+                    `);
                 } else {
-                    let html = '<li>\n' +
-                        '                <a class="canvi-navigation__item">\n' +
-                        '                    <span  id="user-' + user.id + '" class="canvi-navigation__icon-wrapper" style="background:#FF3A43;">\n' +
-                        '                        <span class="canvi-navigation__icon icon-iconmonstr-code-13"></span>\n' +
-                        '                    </span>\n' +
-                        '                    <span class="canvi-navigation__me_text">本人</span>\n' +
-                        '                </a>\n' +
-                        '            </li>';
-                    $("#cebian").append(html);
+                    $("#cebian").append(`
+                        <li>
+                            <a class="canvi-navigation__item">
+                                <span  id="user-' + user.id + '" class="canvi-navigation__icon-wrapper" style="background:#FF3A43;">
+                                    <span class="canvi-navigation__icon icon-iconmonstr-code-13"></span>
+                                </span>
+                                <span class="canvi-navigation__me_text">Self</span>
+                            </a>
+                        </li>
+                    `);
                 }
             });
         }
@@ -320,7 +321,7 @@ function allRoom(obj) {
         success: rooms => {
             $("#rooms").empty();
             if (rooms.length > 0) {
-                layer.tips("双击或点这里可选择已存在的房间", obj);
+                layer.tips("Double Click to Show Existed Rooms", obj);
             }
             rooms.forEach(function (room) {
                 let html = '<option value="' + room + '">';

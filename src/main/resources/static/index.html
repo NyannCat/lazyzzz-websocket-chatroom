@@ -2,7 +2,7 @@
 <html xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-    <title>聊天室</title>
+    <title>Chat Room</title>
     <link href="./css/demo.css" rel="stylesheet" type="text/css"/>
     <link href="./css/normalize.css" rel="stylesheet" type="text/css"/>
     <link href="./css/canvi.css" rel="stylesheet" type="text/css"/>
@@ -22,8 +22,8 @@
        inert="" style="width: 100vw;">
     <div class="canvi-user-info" id="canvi" style="padding-top: 20px;padding-bottom: 20px;">
         <div class="canvi-user-info__data">
-            <span class="canvi-user-info__title" id="activeRoom">房间号:</span>
-            <a class="canvi-user-info__meta" id="activeUser">开心畅聊每一天😘</a><br>
+            <span class="canvi-user-info__title" id="activeRoom">Room Number:</span>
+            <a class="canvi-user-info__meta" id="activeUser">Happy Chat Everyday😘</a><br>
         </div>
     </div>
     <ul class="canvi-navigation" id="cebian">
@@ -33,18 +33,18 @@
 <main class="js-canvi-content canvi-content"></main>
 
 <div>
-    <button class="js-canvi-open-button--left btn" id="btn" style="display: none">查看在线人数</button>
+    <button class="js-canvi-open-button--left btn" id="btn" style="display: none">Check Online Numbers</button>
     <div style="display: none;">
         <div>
-            <span>昵称：</span>
+            <span>Nickname</span>
             <input id="nick" type="text">
         </div>
         <div>
-            <span>房间：</span>
+            <span>Room Number</span>
             <input id="room" type="text">
         </div>
         <div>
-            <span>用户ID：</span>
+            <span>User Id</span>
             <input id="userId" type="text">
         </div>
     </div>
@@ -70,21 +70,21 @@
     </div>
 
     <form id="imageUp" style="display: none">
-        <a class="blueButton" href='javascript:void(0);'>发图</a>
+        <a class="blueButton" href='javascript:void(0);'>Send Picture</a>
         <input class="myFileUpload" id="image" name="file" onchange="sendImg(this)" type="file"/>
     </form>
 </div>
 
 <div class="login" id="window">
-    <div class="login-title">进入房间</div>
+    <div class="login-title">Enter the Chat</div>
     <div class="login-input-content">
         <div class="login-input">
-            <label>昵称：</label>
-            <input class="list-input" id="nickname" placeholder="请输入昵称" type="text"/>
+            <label>Nickname</label>
+            <input class="list-input" id="nickname" placeholder="Please Enter the Nickname" type="text"/>
         </div>
         <div class="login-input">
-            <label>房间：</label>
-            <input class="list-input" id="roomName" list="rooms" onfocus="allRoom(this)" placeholder="请输入房间"
+            <label>Room Name</label>
+            <input class="list-input" id="roomName" list="rooms" onfocus="allRoom(this)" placeholder="Please Enter the Room Number"
                    type="text"/>
             <datalist id="rooms"></datalist>
         </div>
@@ -100,7 +100,7 @@
         </ul>
     </div>
     <div class="login-button" onclick="login()">
-        <a href="javascript:void(0);" id="login-button-submit" style="text-decoration:none;color:#ffffff;">进入</a>
+        <a href="javascript:void(0);" id="login-button-submit" style="text-decoration:none;color:#ffffff;">Enter</a>
     </div>
 
 </div>
@@ -125,12 +125,4 @@
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </body>
 
-<script>
-    // new Vue({
-    //     el: '#app',
-    //     data: function() {
-    //         return { visible: false }
-    //     }
-    // })
-</script>
 </html>
