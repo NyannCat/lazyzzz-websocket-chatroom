@@ -63,7 +63,7 @@ function initWebsocket() {
         return
     }
 
-    let socketUrl = 'ws://localhost:8080/websocket/' + roomName + '/' + nickname;
+    let socketUrl = 'ws://47.112.193.148:8080/websocket/' + roomName + '/' + nickname;
     if (websocket == null) {
         websocket = new WebSocket(socketUrl);
     }
