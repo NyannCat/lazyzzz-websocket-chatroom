@@ -88,12 +88,17 @@ function initWebsocket() {
 
     websocket.onclose = () => {
         layer.alert(oncloseMsg, {icon: 2});
+        $("#footer").animate({bottom: '-200px'}, 400);
         // console.log("websocket已关闭")
     }
 
     websocket.onerror = () => {
         layer.msg(onerrorMsg, {anim: 6});
         // console.log("websocket发生错误")
+    }
+
+    window.onbeforeunload = function () {
+        websocket.close();
     }
 
     initAnimation();

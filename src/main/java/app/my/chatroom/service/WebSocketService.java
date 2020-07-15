@@ -46,12 +46,12 @@ public class WebSocketService {
         //添加用户
         roomSessionMap.get(roomName).add(session);
 
+        roomUserMap.computeIfAbsent(roomName, k -> new HashSet<>());
+        roomUserMap.get(roomName).add(username);
+
         //加入房间系统消息
         BaseMessage response = new BaseMessage(username + " Enter the Room", true);
         sendToAll(session, roomName, response);
-
-        roomUserMap.computeIfAbsent(roomName, k -> new HashSet<>());
-        roomUserMap.get(roomName).add(username);
 
         log.info(username + "Enter the Room:" + roomName + ", Online Users:" + onlineNum.incrementAndGet());
     }
